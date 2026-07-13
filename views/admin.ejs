@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Student Management System</h1>
+            <a href="/add" class="btn">Add New Student</a>
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>USN</th>
+                    <th>Full Name</th>
+                    <th>Photo</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>CGPA</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% if (data.length === 0) { %>
+
+                    <tr>
+                        <td colspan="7" style="text-align:center;">
+                            No students found.
+                        </td>
+                    </tr>
+
+                <% } else { %>
+
+                    <% data.forEach(function(i) { %>
+
+                        <tr>
+                            <td><%= i.usn %></td>
+                            <td><%= i.fullname %></td>
+
+                            <td>
+                                <img src="/photo/<%= i.usn %>"
+                                     alt="Student"
+                                     width="80"
+                                     height="80">
+                            </td>
+
+                            <td><%= i.branch %></td>
+                            <td><%= i.sem %></td>
+                            <td><%= i.cgpa %></td>
+
+                            <td>
+                                <a href="/edit/<%= i.usn %>" class="btn">Edit</a>
+                                <a href="/delete/<%= i.usn %>" class="btn dlt-btn">Delete</a>
+                            </td>
+                        </tr>
+
+                    <% }); %>
+
+                <% } %>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>

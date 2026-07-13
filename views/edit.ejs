@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+</head>
+<body>
+
+<h2>Edit Student</h2>
+
+<form action="/edit/<%= student.usn %>" method="POST" enctype="multipart/form-data">
+
+    <input type="text" name="fullname" value="<%= student.fullname %>">
+
+    <input type="text" name="branch" value="<%= student.branch %>">
+
+    <input type="number" name="sem" value="<%= student.sem %>">
+
+    <input type="text" name="cgpa" value="<%= student.cgpa %>">
+
+    <input type="file" name="photo">
+
+    <button type="submit">Update</button>
+
+</form>
+
+</body>
+</html>

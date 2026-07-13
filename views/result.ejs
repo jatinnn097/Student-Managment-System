@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Result</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+            padding:20px;
+        }
+
+        .container{
+            max-width:700px;
+            margin:auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+            color:#333;
+        }
+
+        h3{
+            color:#444;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+
+        .row{
+            display:flex;
+            gap:10px;
+        }
+
+        .row input{
+            flex:1;
+        }
+
+        .error{
+            text-align:center;
+            color:red;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<% if(student){ %>
+
+    <h2>Add Student Result</h2>
+
+    <h3>Name : <%= student.fullname %></h3>
+    <h3>USN : <%= student.usn %></h3>
+
+    <form action="/result/<%= student.usn %>" method="POST">
+
+        <label>Semester</label>
+        <input type="number" name="semester" required>
+
+        <h3>Subjects</h3>
+
+        <div class="row">
+            <input type="text" name="sub1" placeholder="Subject 1" required>
+            <input type="number" name="mark1" placeholder="Marks" required>
+        </div>
+
+        <div class="row">
+            <input type="text" name="sub2" placeholder="Subject 2" required>
+            <input type="number" name="mark2" placeholder="Marks" required>
+        </div>
+
+        <div class="row">
+            <input type="text" name="sub3" placeholder="Subject 3" required>
+            <input type="number" name="mark3" placeholder="Marks" required>
+        </div>
+
+        <div class="row">
+            <input type="text" name="sub4" placeholder="Subject 4" required>
+            <input type="number" name="mark4" placeholder="Marks" required>
+        </div>
+
+        <div class="row">
+            <input type="text" name="sub5" placeholder="Subject 5" required>
+            <input type="number" name="mark5" placeholder="Marks" required>
+        </div>
+
+        <div class="row">
+            <input type="text" name="sub6" placeholder="Subject 6" required>
+            <input type="number" name="mark6" placeholder="Marks" required>
+        </div>
+
+        <label>Percentage</label>
+        <input type="number" step="0.01" name="percentage" required>
+
+        <label>CGPA</label>
+        <input type="number" step="0.01" name="cgpa" required>
+
+        <button type="submit">Publish Result</button>
+
+    </form>
+
+<% } else { %>
+
+    <h2 class="error">Student Not Found!</h2>
+
+<% } %>
+
+</div>
+
+</body>
+</html>

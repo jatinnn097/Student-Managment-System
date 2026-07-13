@@ -1,0 +1,161 @@
+```ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:80%;
+            max-width:900px;
+            margin:40px auto;
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,.2);
+        }
+
+        .profile{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        .profile img{
+            width:150px;
+            height:150px;
+            border-radius:50%;
+            object-fit:cover;
+            border:3px solid #007BFF;
+        }
+
+        .profile h2{
+            margin-top:15px;
+        }
+
+        .profile p{
+            margin:5px 0;
+            color:#555;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th,td{
+            padding:12px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        th{
+            background:#007BFF;
+            color:white;
+        }
+
+        a{
+            text-decoration:none;
+            color:white;
+            background:#28a745;
+            padding:8px 15px;
+            border-radius:5px;
+        }
+
+        a:hover{
+            background:#218838;
+        }
+
+        .no-result{
+            text-align:center;
+            color:red;
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<% if(student){ %>
+
+    <div class="profile">
+
+        <% if(student.photo){ %>
+            <img src="data:image/jpeg;base64,<%= student.photo %>" alt="Student">
+        <% } %>
+
+        <h2><%= student.fullname %></h2>
+
+        <p><strong>USN:</strong> <%= student.usn %></p>
+
+        <p><strong>Branch:</strong> <%= student.branch %></p>
+
+        <p><strong>Current Semester:</strong> <%= student.sem %></p>
+
+        <p><strong>CGPA:</strong> <%= student.cgpa %></p>
+
+    </div>
+
+    <% if(student.results && student.results.length > 0){ %>
+
+        <table>
+
+            <tr>
+                <th>Semester</th>
+                <th>Percentage</th>
+                <th>CGPA</th>
+                <th>View</th>
+            </tr>
+
+            <% student.results.forEach(function(result){ %>
+
+                <% if(result.published){ %>
+
+                <tr>
+                    <td><%= result.sem %></td>
+                    <td><%= result.percentage %>%</td>
+                    <td><%= result.cgpa %></td>
+                    <td>
+                        <a href="/student/result/<%= result.sem %>">
+                            View Result
+                        </a>
+                    </td>
+                </tr>
+
+                <% } %>
+
+            <% }) %>
+
+        </table>
+
+    <% } else { %>
+
+        <h3 class="no-result">No Results Published</h3>
+
+    <% } %>
+
+<% } else { %>
+
+    <h2 class="no-result">Student Not Found</h2>
+
+<% } %>
+
+</div>
+
+</body>
+</html>
+```
