@@ -210,7 +210,7 @@ async function main() {
         response.render('student', {student});
     });
 
-    app.get('/student/result/:sem', async(request, response) => {
+   /* app.get('/student/result/:sem', async(request, response) => {
         console.log(`session : ${request.session.student}`);
         const student = await students.findOne({usn:request.session.student});
 
@@ -220,8 +220,34 @@ async function main() {
             student,
             sem,
             result
-        });
+        });*/
+    app.get('/student/result/:usn/:sem', async (req, res) => {
+
+    const student = await students.findOne({
+        usn: req.params.usn
     });
+
+    if (!student) {
+        return res.render("semResult", {
+            student: null,
+            sem: null,
+            result: null
+        });
+    }
+
+    const sem = Number(req.params.sem);
+
+    const result = student.results
+        ? student.results.find(r => r.sem === sem)
+        : null;
+
+    res.render("semResult", {
+        student,
+        sem,
+        result
+    });
+
+});
 
     app.listen(5000, ()=> {
         console.log('App is running in port 5000')
