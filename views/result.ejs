@@ -6,81 +6,101 @@
     <title>Add Result</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
         *{
             margin:0;
             padding:0;
             box-sizing:border-box;
-            font-family:Arial,sans-serif;
+            font-family:"Montserrat",sans-serif;
         }
 
         body{
             background:#f4f4f4;
-            padding:20px;
         }
 
         .container{
-            max-width:700px;
-            margin:auto;
-            background:#fff;
-            padding:25px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.2);
+            width:90%;
+            margin:30px auto;
         }
 
         h2{
             text-align:center;
-            margin-bottom:20px;
-            color:#333;
+            color:rgb(0,77,77);
+            margin-bottom:10px;
         }
 
         h3{
-            margin-bottom:10px;
+            text-align:center;
+            margin-bottom:20px;
             color:#444;
+        }
+
+        .form-card{
+            max-width:800px;
+            margin:auto;
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,.2);
         }
 
         label{
             display:block;
-            margin-top:15px;
+            margin:15px 0 8px;
             font-weight:bold;
         }
 
+        select,
         input{
             width:100%;
-            padding:10px;
-            margin-top:5px;
+            padding:12px;
             border:1px solid #ccc;
             border-radius:5px;
+            font-size:15px;
         }
 
-        .row{
-            display:flex;
-            gap:10px;
-            margin-top:10px;
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
         }
 
-        .row input{
-            flex:1;
+        table th{
+            background:rgb(0,77,77);
+            color:#fff;
+            padding:12px;
+        }
+
+        table td{
+            border:1px solid #ddd;
+            padding:10px;
+        }
+
+        table input{
+            margin:0;
         }
 
         button{
             width:100%;
             padding:12px;
             margin-top:20px;
+            background:rgb(0,77,77);
+            color:#fff;
             border:none;
-            background:#007BFF;
-            color:white;
             border-radius:5px;
-            cursor:pointer;
             font-size:16px;
+            cursor:pointer;
         }
 
         button:hover{
-            background:#0056b3;
+            background:rgb(0,100,100);
         }
 
         .error{
-            text-align:center;
             color:red;
+            text-align:center;
+            margin-top:30px;
         }
     </style>
 </head>
@@ -90,61 +110,81 @@
 
 <% if(student){ %>
 
-    <h2>Add Student Result</h2>
+<h2>Add Result of <%= student.fullname %></h2>
+<h3>USN : <%= student.usn %></h3>
 
-    <h3>Name : <%= student.fullname %></h3>
-    <h3>USN : <%= student.usn %></h3>
+<div class="form-card">
 
-    <form action="/result/<%= student.usn %>" method="POST">
+<form action="/result/<%= student.usn %>" method="POST">
 
-        <label>Semester</label>
-        <input type="number" name="semester" required>
+<label>Semester</label>
 
-        <label>Subjects & Marks</label>
+<select name="semester" required>
+    <option value="">Select Semester</option>
+    <option value="1">Semester 1</option>
+    <option value="2">Semester 2</option>
+    <option value="3">Semester 3</option>
+    <option value="4">Semester 4</option>
+    <option value="5">Semester 5</option>
+    <option value="6">Semester 6</option>
+    <option value="7">Semester 7</option>
+    <option value="8">Semester 8</option>
+</select>
 
-        <div class="row">
-            <input type="text" name="sub1" placeholder="Subject 1" required>
-            <input type="number" name="mark1" placeholder="Marks" required>
-        </div>
+<table>
+    <tr>
+        <th>Subject</th>
+        <th>Marks</th>
+    </tr>
 
-        <div class="row">
-            <input type="text" name="sub2" placeholder="Subject 2" required>
-            <input type="number" name="mark2" placeholder="Marks" required>
-        </div>
+    <tr>
+        <td><input type="text" name="sub1" placeholder="Subject 1" required></td>
+        <td><input type="number" name="mark1" required></td>
+    </tr>
 
-        <div class="row">
-            <input type="text" name="sub3" placeholder="Subject 3" required>
-            <input type="number" name="mark3" placeholder="Marks" required>
-        </div>
+    <tr>
+        <td><input type="text" name="sub2" placeholder="Subject 2" required></td>
+        <td><input type="number" name="mark2" required></td>
+    </tr>
 
-        <div class="row">
-            <input type="text" name="sub4" placeholder="Subject 4" required>
-            <input type="number" name="mark4" placeholder="Marks" required>
-        </div>
+    <tr>
+        <td><input type="text" name="sub3" placeholder="Subject 3" required></td>
+        <td><input type="number" name="mark3" required></td>
+    </tr>
 
-        <div class="row">
-            <input type="text" name="sub5" placeholder="Subject 5" required>
-            <input type="number" name="mark5" placeholder="Marks" required>
-        </div>
+    <tr>
+        <td><input type="text" name="sub4" placeholder="Subject 4" required></td>
+        <td><input type="number" name="mark4" required></td>
+    </tr>
 
-        <div class="row">
-            <input type="text" name="sub6" placeholder="Subject 6" required>
-            <input type="number" name="mark6" placeholder="Marks" required>
-        </div>
+    <tr>
+        <td><input type="text" name="sub5" placeholder="Subject 5" required></td>
+        <td><input type="number" name="mark5" required></td>
+    </tr>
 
-        <label>Percentage</label>
-        <input type="number" step="0.01" name="percentage" required>
+    <tr>
+        <td><input type="text" name="sub6" placeholder="Subject 6" required></td>
+        <td><input type="number" name="mark6" required></td>
+    </tr>
+</table>
 
-        <label>CGPA</label>
-        <input type="number" step="0.01" name="cgpa" required>
+<br>
 
-        <button type="submit">Publish Result</button>
+<label>Percentage</label>
+<input type="number" step="0.01" name="percentage" required>
 
-    </form>
+<label>CGPA</label>
+<input type="number" step="0.01" name="cgpa" required>
+
+<button type="submit">Publish Result</button>
+
+</form>
+
+</div>
 
 <% } else { %>
 
-    <h2 class="error">Student Not Found!</h2>
+<h2 class="error">Student Not Found!</h2>
 
 <% } %>
 

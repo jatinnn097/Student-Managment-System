@@ -4,98 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="/styles.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:95%;
+            margin:30px auto;
+        }
+
+        .header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:25px;
+        }
+
+        h1{
+            font-size:52px;
+        }
+
+        .btn{
+            display:inline-block;
+            text-decoration:none;
+            background:#055a5a;
+            color:white;
+            padding:12px 24px;
+            border-radius:10px;
+            font-size:18px;
+            transition:.3s;
+        }
+
+        .btn:hover{
+            opacity:.9;
+        }
+
+        .dlt-btn{
+            background:red;
+        }
+
+        .result-btn{
+            background:#0b6b6b;
+        }
+
+        .admin-table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+        }
+
+        .admin-table th{
+            background:#055a5a;
+            color:white;
+            padding:18px;
+            font-size:18px;
+        }
+
+        .admin-table td{
+            border:1px solid #ddd;
+            text-align:center;
+            padding:20px;
+        }
+
+        .admin-table img{
+            width:80px;
+            height:80px;
+            object-fit:cover;
+            border-radius:8px;
+        }
+
+        /* Space between Edit, Result and Delete buttons */
+        .action-buttons{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:15px;
+            flex-wrap:wrap;
+        }
+
+        .header-buttons .btn{
+            padding:14px 30px;
+            font-size:20px;
+        }
+
+    </style>
+
 </head>
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <div class="header">
-            <h1>Student Management System</h1>
+    <div class="header">
+        <h1>Student Management System</h1>
 
-            <div class="header-buttons">
-                <a href="/add" class="btn">Add New Student</a>
-            </div>
+        <div class="header-buttons">
+            <a href="/add" class="btn">Add New Student</a>
         </div>
-
-        <table class="admin-table">
-
-            <thead>
-                <tr>
-                    <th>USN</th>
-                    <th>Full Name</th>
-                    <th>Photo</th>
-                    <th>Branch</th>
-                    <th>Semester</th>
-                    <th>CGPA</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <% if (data.length === 0) { %>
-
-                    <tr>
-                        <td colspan="7" style="text-align:center;">
-                            No students found.
-                        </td>
-                    </tr>
-
-                <% } else { %>
-
-                    <% data.forEach(function(i){ %>
-
-                        <tr>
-
-                            <td><%= i.usn %></td>
-
-                            <td><%= i.fullname %></td>
-
-                            <td>
-                                <img
-                                    src="/photo/<%= i.usn %>"
-                                    alt="Student Photo"
-                                    width="80"
-                                    height="80"
-                                    style="border-radius:6px; object-fit:cover;">
-                            </td>
-
-                            <td><%= i.branch %></td>
-
-                            <td><%= i.sem %></td>
-
-                            <td><%= i.cgpa %></td>
-
-                            <td>
-
-                                <a href="/edit/<%= i.usn %>" class="btn">
-                                    Edit
-                                </a>
-
-                                <a href="/student/result/<%= i.usn %>" class="btn result-btn">
-                                    Result
-                                </a>
-
-                                <a href="/delete/<%= i.usn %>"
-                                   class="btn dlt-btn"
-                                   onclick="return confirm('Are you sure you want to delete this student?');">
-                                    Delete
-                                </a>
-
-                            </td>
-
-                        </tr>
-
-                    <% }) %>
-
-                <% } %>
-
-            </tbody>
-
-        </table>
-
     </div>
+
+    <table class="admin-table">
+
+        <thead>
+            <tr>
+                <th>USN</th>
+                <th>Full Name</th>
+                <th>Photo</th>
+                <th>Branch</th>
+                <th>Semester</th>
+                <th>CGPA</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <% if(data.length===0){ %>
+
+            <tr>
+                <td colspan="7">No students found.</td>
+            </tr>
+
+        <% } else { %>
+
+            <% data.forEach(function(i){ %>
+
+            <tr>
+
+                <td><%= i.usn %></td>
+
+                <td><%= i.fullname %></td>
+
+                <td>
+                    <img src="/photo/<%= i.usn %>">
+                </td>
+
+                <td><%= i.branch %></td>
+
+                <td><%= i.sem %></td>
+
+                <td><%= i.cgpa %></td>
+
+                <td>
+                    <div class="action-buttons">
+
+                        <a href="/edit/<%= i.usn %>" class="btn">
+                            Edit
+                        </a>
+
+                        <a href="/result/<%= i.usn %>" class="btn result-btn">
+                            Result
+                        </a>
+
+                        <a href="/delete/<%= i.usn %>"
+                           class="btn dlt-btn"
+                           onclick="return confirm('Delete this student?')">
+                            Delete
+                        </a>
+
+                    </div>
+                </td>
+
+            </tr>
+
+            <% }) %>
+
+        <% } %>
+
+        </tbody>
+
+    </table>
+
+</div>
 
 </body>
 </html>
