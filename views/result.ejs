@@ -137,44 +137,44 @@
         <th>Marks</th>
     </tr>
 
-    <tr>
-        <td><input type="text" name="sub1" placeholder="Subject 1" required></td>
-        <td><input type="number" name="mark1" required></td>
-    </tr>
+   <tr>
+    <td><input type="text" name="sub1" placeholder="Subject 1" required></td>
+    <td><input type="number" name="mark1" class="marks" min="0" max="100" required></td>
+</tr>
 
-    <tr>
-        <td><input type="text" name="sub2" placeholder="Subject 2" required></td>
-        <td><input type="number" name="mark2" required></td>
-    </tr>
+<tr>
+    <td><input type="text" name="sub2" placeholder="Subject 2" required></td>
+    <td><input type="number" name="mark2" class="marks" min="0" max="100" required></td>
+</tr>
 
-    <tr>
-        <td><input type="text" name="sub3" placeholder="Subject 3" required></td>
-        <td><input type="number" name="mark3" required></td>
-    </tr>
+<tr>
+    <td><input type="text" name="sub3" placeholder="Subject 3" required></td>
+    <td><input type="number" name="mark3" class="marks" min="0" max="100" required></td>
+</tr>
 
-    <tr>
-        <td><input type="text" name="sub4" placeholder="Subject 4" required></td>
-        <td><input type="number" name="mark4" required></td>
-    </tr>
+<tr>
+    <td><input type="text" name="sub4" placeholder="Subject 4" required></td>
+    <td><input type="number" name="mark4" class="marks" min="0" max="100" required></td>
+</tr>
 
-    <tr>
-        <td><input type="text" name="sub5" placeholder="Subject 5" required></td>
-        <td><input type="number" name="mark5" required></td>
-    </tr>
+<tr>
+    <td><input type="text" name="sub5" placeholder="Subject 5" required></td>
+    <td><input type="number" name="mark5" class="marks" min="0" max="100" required></td>
+</tr>
 
-    <tr>
-        <td><input type="text" name="sub6" placeholder="Subject 6" required></td>
-        <td><input type="number" name="mark6" required></td>
-    </tr>
+<tr>
+    <td><input type="text" name="sub6" placeholder="Subject 6" required></td>
+    <td><input type="number" name="mark6" class="marks" min="0" max="100" required></td>
+</tr>
 </table>
 
 <br>
 
 <label>Percentage</label>
-<input type="number" step="0.01" name="percentage" required>
+<input type="number" id="percentage" name="percentage" step="0.01" readonly>
 
 <label>CGPA</label>
-<input type="number" step="0.01" name="cgpa" required>
+<input type="number" id="cgpa" name="cgpa" step="0.01" readonly>
 
 <button type="submit">Publish Result</button>
 
@@ -189,6 +189,28 @@
 <% } %>
 
 </div>
+<script>
+function calculateResult() {
 
+    let total = 0;
+
+    document.querySelectorAll(".marks").forEach(function(input){
+        total += parseFloat(input.value) || 0;
+    });
+
+    let percentage = (total / 600) * 100;
+    let cgpa = percentage / 9.5;
+
+    document.getElementById("percentage").value =
+        total > 0 ? percentage.toFixed(2) : "";
+
+    document.getElementById("cgpa").value =
+        total > 0 ? cgpa.toFixed(2) : "";
+}
+
+document.querySelectorAll(".marks").forEach(function(input){
+    input.addEventListener("input", calculateResult);
+});
+</script>
 </body>
 </html>
